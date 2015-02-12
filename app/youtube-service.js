@@ -19,7 +19,7 @@
              * @return {object} $resource
              */
             this.search = function (query) {
-                return youtubeApi.get({
+                var params = {
                     q           : query,
                     key         : CONFIG.googleApiKey,
                     type        : 'video',
@@ -33,7 +33,9 @@
                         'items/snippet/thumbnails/default',
                         'items/snippet/channelTitle'
                     ].join(',')
-                }).$promise;
+                };
+
+                return youtubeApi.get(params).$promise;
             };
         };
 

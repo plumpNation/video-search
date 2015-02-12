@@ -22,7 +22,7 @@
             //     {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
             ],
 
-            history = [
+            historyList = [
                 // {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
             ];
 
@@ -39,9 +39,9 @@
         function onYoutubeReady (event) {
             $log.info('YouTube Player is ready');
 
-            if (history[0] && history[0].id) {
-                youtube.videoId = history[0].id;
-                youtube.videoTitle = history[0].title;
+            if (historyList[0] && historyList[0].id) {
+                youtube.videoId = historyList[0].id;
+                youtube.videoTitle = historyList[0].title;
 
                 youtube.player.cueVideoById(youtube.videoId);
             }
@@ -131,15 +131,26 @@
         };
 
         this.archiveVideo = function (id, title) {
-            history.unshift({
+            historyList.unshift({
                 id: id,
                 title: title
             });
 
-            return history;
+            return historyList;
         };
 
-        this.deleteVideo = function (list, id) {
+        this.deleteVideo = function (listName, id) {
+            var list;
+
+            switch (listName) {
+            case 'upcoming':
+                list = videoList;
+                break;
+            case 'history':
+                list = historyList;
+                break;
+            }
+
             for (var i = list.length - 1; i >= 0; i--) {
                 if (list[i].id === id) {
                     list.splice(i, 1);
@@ -161,7 +172,7 @@
         };
 
         this.getHistory = function () {
-            return history;
+            return historyList;
         };
 
     };
