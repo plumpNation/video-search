@@ -1,0 +1,9 @@
+(function () {
+    'use strict';
+
+    angular.module('VideoSearch')
+        .constant('CONFIG', {
+            googleApiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        });
+
+}(window.angular))
