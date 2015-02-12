@@ -2,7 +2,7 @@
 <html data-ng-app="VideoSearch">
     <head>
         <meta charset="utf-8">
-        <title>JukeTube</title>
+        <title>Video search</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="style.css" type="text/css">
@@ -11,7 +11,7 @@
 
     <body data-ng-controller="VideosController">
         <header>
-            <h1>Juke<strong>Tube</strong></h1>
+            <h1>Video<strong>search</strong></h1>
             <form id="search" data-ng-submit="search()">
                 <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
                 <input id="submit" type="image" src="search.png" alt="Search">
@@ -56,11 +56,12 @@
         </div>
 
         <script src="http://www.youtube.com/iframe_api"></script>
-        <script src="angular.min.js"></script>
-        <script src="app.js"></script>
-        <script src="config.js"></script>
-        <script src="youtube-service.js"></script>
-        <script src="videos-service.js"></script>
-        <script src="video-controller.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="./app.js"></script>
+        <script src="./config.js"></script>
+        <script src="./youtube-service.js"></script>
+        <script src="./videos-service.js"></script>
+        <script src="./video-controller.js"></script>
     </body>
 </html>

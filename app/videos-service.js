@@ -104,7 +104,7 @@
             youtube.videoTitle = title;
 
             return youtube;
-        }
+        };
 
         this.listResults = function (data) {
             results.length = 0;
@@ -119,7 +119,7 @@
             }
 
             return results;
-        }
+        };
 
         this.queueVideo = function (id, title) {
             videoList.push({

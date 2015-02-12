@@ -6,4 +6,4 @@
             googleApiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         });
 
-}(window.angular))
+}(window.angular));

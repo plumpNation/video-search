@@ -42,11 +42,11 @@
         $scope.search = function () {
             YoutubeService.search(this.query)
                 .then(onYoutubeServiceLoad, onYoutubeServiceError);
-        }
+        };
 
         $scope.tabulate = function (state) {
             $scope.playlist = state;
-        }
+        };
     };
 
     angular.module('VideoSearch').controller('VideosController', VideosController);
