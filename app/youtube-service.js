@@ -5,7 +5,7 @@
 
         YoutubeService = function ($resource, $log, CONFIG) {
             var _maxResults = '8',
-                youtubeApi = $resource(CONFIG.youtubeApiUrl);
+                youtubeApi = $resource(youtubeApiUrl);
 
             /**
              * @param {number} numResults
@@ -20,21 +20,19 @@
              */
             this.search = function (query) {
                 return youtubeApi.get({
-                    params: {
-                        q           : query,
-                        key         : CONFIG.googleApiKey,
-                        type        : 'video',
-                        maxResults  : _maxResults,
-                        part        : 'id,snippet',
+                    q           : query,
+                    key         : CONFIG.googleApiKey,
+                    type        : 'video',
+                    maxResults  : _maxResults,
+                    part        : 'id,snippet',
 
-                        fields: [
-                            'items/id',
-                            'items/snippet/title',
-                            'items/snippet/description',
-                            'items/snippet/thumbnails/default',
-                            'items/snippet/channelTitle'
-                        ].join(',')
-                    }
+                    fields: [
+                        'items/id',
+                        'items/snippet/title',
+                        'items/snippet/description',
+                        'items/snippet/thumbnails/default',
+                        'items/snippet/channelTitle'
+                    ].join(',')
                 }).$promise;
             };
         };

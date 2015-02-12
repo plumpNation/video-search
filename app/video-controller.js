@@ -26,12 +26,14 @@
             VideosService.launchPlayer(id, title);
             VideosService.archiveVideo(id, title);
             VideosService.deleteVideo($scope.upcoming, id);
+
             $log.info('Launched id:' + id + ' and title:' + title);
         };
 
         $scope.queue = function (id, title) {
             VideosService.queueVideo(id, title);
             VideosService.deleteVideo($scope.history, id);
+
             $log.info('Queued id:' + id + ' and title:' + title);
         };
 
