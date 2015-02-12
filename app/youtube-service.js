@@ -1,4 +1,4 @@
-(function (app) {
+(function (angular) {
     'use strict';
 
     var youtubeApiUrl = 'https://www.googleapis.com/youtube/v3/search',
@@ -39,7 +39,6 @@
             };
         };
 
-    angular.module('VideoSearch')
-        .service('YoutubeService', YoutubeService);
+    angular.module('VideoSearch').service('YoutubeService', YoutubeService);
 
 }(window.angular));
