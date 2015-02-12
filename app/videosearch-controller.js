@@ -1,19 +1,15 @@
 (function () {
     'use strict';
 
-    var VideoSearchController = function ($scope, $http, $log, YoutubeService, VideosService) {
-
-        init();
+    var VideoSearchController = function ($scope, $http, $log, YoutubeService) {
+        var videoList = VideoList.create();
 
         function init() {
-            $scope.youtube = VideosService.getYoutube();
-            $scope.results = VideosService.getResults();
-            $scope.upcoming = VideosService.getUpcoming();
-            $scope.playlist = true;
+            $scope.results = [];
         }
 
         function onYoutubeServiceLoad(data) {
-            VideosService.listResults(data);
+            $scope.results = SearchHelper.normalizeResults(data);
             $log.info(data);
         }
 
@@ -21,22 +17,29 @@
             $log.error('Youtube error', error);
         }
 
-        $scope.launch = function (id, title) {
-            VideosService.launchPlayer(id, title);
-            VideosService.deleteVideo(id);
+        function updateSelectedVideos() {
+            $scope.playlist = videoList.get();
+        }
 
-            $log.info('Launched id:' + id + ' and title:' + title);
+        $scope.launch = function (video) {
+            $scope.selectedVideo = video;
+
+            $log.info('Launched id:' + video.id + ' and title:' + video.title);
         };
 
-        $scope.queue = function (id, title) {
-            VideosService.queueVideo(id, title);
-            $scope.launchPlayer(id, title);
+        $scope.select = function (id, title) {
+            videoList.set(id, title);
+
+            updateSelectedVideos();
+
+            $scope.launch(videoList.get(id));
 
             $log.info('Queued id:' + id + ' and title:' + title);
         };
 
-        $scope.delete = function (listname, id) {
-            VideosService.deleteVideo(id);
+        $scope.deselect = function (listname, id) {
+            videoList.remove(id);
+            $scope.playlist = videoList.get();
         };
 
         $scope.search = function () {
@@ -47,6 +50,8 @@
         $scope.tabulate = function (state) {
             $scope.playlist = state;
         };
+
+        init();
     };
 
     angular.module('VideoSearch').controller('VideoSearchController', VideoSearchController);

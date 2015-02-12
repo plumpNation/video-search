@@ -5,7 +5,8 @@
         .directive('videosearch', function () {
             return {
                 restrict: 'AE',
-                templateUrl: 'videosearch-directive.html',
+                scope: {},
+                templateUrl: './videosearch-directive.html',
                 controller: 'VideoSearchController'
             };
         });
