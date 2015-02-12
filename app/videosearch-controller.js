@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var VideosController = function ($scope, $http, $log, YoutubeService, VideosService) {
+    var VideoSearchController = function ($scope, $http, $log, YoutubeService, VideosService) {
 
         init();
 
@@ -9,7 +9,6 @@
             $scope.youtube = VideosService.getYoutube();
             $scope.results = VideosService.getResults();
             $scope.upcoming = VideosService.getUpcoming();
-            $scope.history = VideosService.getHistory();
             $scope.playlist = true;
         }
 
@@ -24,21 +23,20 @@
 
         $scope.launch = function (id, title) {
             VideosService.launchPlayer(id, title);
-            VideosService.archiveVideo(id, title);
-            VideosService.deleteVideo($scope.upcoming, id);
+            VideosService.deleteVideo(id);
 
             $log.info('Launched id:' + id + ' and title:' + title);
         };
 
         $scope.queue = function (id, title) {
             VideosService.queueVideo(id, title);
-            VideosService.deleteVideo($scope.history, id);
+            $scope.launchPlayer(id, title);
 
             $log.info('Queued id:' + id + ' and title:' + title);
         };
 
-        $scope.delete = function (list, id) {
-            VideosService.deleteVideo(list, id);
+        $scope.delete = function (listname, id) {
+            VideosService.deleteVideo(id);
         };
 
         $scope.search = function () {
@@ -51,5 +49,5 @@
         };
     };
 
-    angular.module('VideoSearch').controller('VideosController', VideosController);
+    angular.module('VideoSearch').controller('VideoSearchController', VideoSearchController);
 }(window.angular));

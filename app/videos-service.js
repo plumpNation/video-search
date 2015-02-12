@@ -20,10 +20,6 @@
 
             videoList = [
             //     {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-            ],
-
-            historyList = [
-                // {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
             ];
 
         $window.onYouTubeIframeAPIReady = function () {
@@ -38,13 +34,6 @@
 
         function onYoutubeReady (event) {
             $log.info('YouTube Player is ready');
-
-            if (historyList[0] && historyList[0].id) {
-                youtube.videoId = historyList[0].id;
-                youtube.videoTitle = historyList[0].title;
-
-                youtube.player.cueVideoById(youtube.videoId);
-            }
         }
 
         function onYoutubeStateChange (event) {
@@ -59,6 +48,7 @@
 
                 case YT.PlayerState.ENDED:
                     youtube.state = 'ended';
+
                     service.launchPlayer(videoList[0].id, videoList[0].title);
                     service.archiveVideo(videoList[0].id, videoList[0].title);
                     service.deleteVideo(videoList, videoList[0].id);
@@ -108,13 +98,14 @@
 
         this.listResults = function (data) {
             results.length = 0;
+
             for (var i = data.items.length - 1; i >= 0; i--) {
                 results.push({
-                    id: data.items[i].id.videoId,
-                    title: data.items[i].snippet.title,
-                    description: data.items[i].snippet.description,
-                    thumbnail: data.items[i].snippet.thumbnails.default.url,
-                    author: data.items[i].snippet.channelTitle
+                    id          : data.items[i].id.videoId,
+                    title       : data.items[i].snippet.title,
+                    description : data.items[i].snippet.description,
+                    thumbnail   : data.items[i].snippet.thumbnails.default.url,
+                    author      : data.items[i].snippet.channelTitle
                 });
             }
 
@@ -130,33 +121,10 @@
             return videoList;
         };
 
-        this.archiveVideo = function (id, title) {
-            historyList.unshift({
-                id: id,
-                title: title
+        this.deleteVideo = function (id) {
+            videoList = videoList.filter(function (video) {
+                return video.id !== id;
             });
-
-            return historyList;
-        };
-
-        this.deleteVideo = function (listName, id) {
-            var list;
-
-            switch (listName) {
-            case 'upcoming':
-                list = videoList;
-                break;
-            case 'history':
-                list = historyList;
-                break;
-            }
-
-            for (var i = list.length - 1; i >= 0; i--) {
-                if (list[i].id === id) {
-                    list.splice(i, 1);
-                    break;
-                }
-            }
         };
 
         this.getYoutube = function () {
@@ -169,10 +137,6 @@
 
         this.getUpcoming = function () {
             return videoList;
-        };
-
-        this.getHistory = function () {
-            return historyList;
         };
 
     };

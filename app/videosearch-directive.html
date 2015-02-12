@@ -1,0 +1,35 @@
+<header>
+    <h1>Video<strong>search</strong></h1>
+    <form id="search" data-ng-submit="search()">
+        <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
+        <input id="submit" type="image" src="search.png" alt="Search">
+    </form>
+    <nav>
+        <a id="play">{{ youtube.state }}</a>
+        <a id="pause">Pause</a>
+    </nav>
+</header>
+
+<div id="results">
+    <div class="video" data-ng-repeat="video in results" data-ng-click="queue(video.id, video.title)">
+        <img class="video-image" data-ng-src="{{ video.thumbnail }}">
+        <p class="video-title">{{ video.title }}</p>
+        <p class="video-author">{{ video.author }}</p>
+        <p class="video-description">{{ video.description }}</p>
+    </div>
+</div>
+
+<div id="player">
+    <div id="placeholder"></div>
+</div>
+
+<div id="playlist">
+    <h3 id="current">{{ youtube.videoTitle }}</h3>
+
+    <ol id="upcoming" data-ng-show="playlist">
+        <li data-ng-repeat="video in upcoming">
+            <p class="item-delete" data-ng-click="delete(video.id)">delete</p>
+            <p class="item-title" data-ng-click="launch(video.id, video.title)">{{video.title}}</p>
+        </li>
+    </ol>
+</div>
