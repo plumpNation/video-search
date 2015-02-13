@@ -74,7 +74,7 @@
             $log.info('Youtube API is ready');
 
             youtube.ready = true;
-            bindPlayer('placeholder');
+            bindPlayer('player-insert');
             loadPlayer();
         };
 
@@ -91,14 +91,15 @@
             return {
                 restrict: 'EA',
                 controller: 'YoutubePlayerController',
-                template: '<div id="placeholder"></div>',
+                template: '<div id="player-insert"></div>',
                 scope: {
                     video: '='
                 },
-                link: function (scope) {
+                link: function (scope, element) {
                     scope.$watch('video', function () {
                         if (scope.video) {
                             scope.launchPlayer(scope.video.id, scope.video.title);
+                            scope.videoTitle = scope.video.title;
                         }
                     });
                 }

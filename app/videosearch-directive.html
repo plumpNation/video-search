@@ -17,18 +17,18 @@
             <p class="video-author">{{ video.author }}</p>
             <p class="video-description">{{ video.description }}</p>
         </div>
-    </div>
+    </div><!--
 
-    <youtube-player id="player" video="selectedVideo"></youtube-player>
-
-    <div id="playlist">
-        <h3 id="current">{{ youtube.videoTitle }}</h3>
-
-        <ol id="upcoming">
-            <li data-ng-repeat="video in upcoming">
-                <button class="item-delete" data-ng-click="deselect(video.id)">Remove</button>
-                <p class="item-title" data-ng-click="launch(video.id, video.title)">{{ video.title }}</p>
-            </li>
-        </ol>
+    --><div id="selections">
+        <youtube-player id="player" video="selectedVideo"></youtube-player>
+        <h3 id="current">{{ selectedVideo.title }}</h3>
+        <div id="playlist">
+            <ol id="upcoming">
+                <li data-ng-repeat="video in playlist">
+                    <a class="item-delete" data-ng-click="deselect(video.id)">Remove</a>
+                    <p class="item-title" data-ng-click="launch(video.id, video.title)">{{ video.title }}</p>
+                </li>
+            </ol>
+        </div>
     </div>
 </section>

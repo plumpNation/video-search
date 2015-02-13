@@ -21,6 +21,7 @@
             $scope.playlist = videoList.get();
         }
 
+        // @todo move this to the playlist
         $scope.launch = function (video) {
             $scope.selectedVideo = video;
 
