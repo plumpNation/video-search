@@ -97,7 +97,6 @@
                 },
                 link: function (scope) {
                     scope.$watch('video', function () {
-                        debugger;
                         if (scope.video) {
                             scope.launchPlayer(scope.video.id, scope.video.title);
                         }

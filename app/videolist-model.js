@@ -42,14 +42,17 @@
 
     /**
      * @param {string} videoId
-     * @param {object} video
+     * @param {object} videoTitle
      */
-    VideoList.prototype.set = function (videoId, video) {
-        if (!videoId || !video) {
+    VideoList.prototype.set = function (videoId, videoTitle) {
+        if (!videoId || !videoTitle) {
             throw new Error('Seriously, read the source.');
         }
 
-        this.videos[videoId] = video;
+        this.videos[videoId] = {
+            id: videoId,
+            title: videoTitle
+        };
 
         return this;
     };
