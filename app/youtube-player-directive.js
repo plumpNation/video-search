@@ -70,13 +70,13 @@
                 }
             };
 
-        $window.onYouTubeIframeAPIReady = function () {
+        $window.youtubePlayerLoading.then(function () {
             $log.info('Youtube API is ready');
 
             youtube.ready = true;
             bindPlayer('player-insert');
             loadPlayer();
-        };
+        });
 
         $scope.launchPlayer = function (id, title) {
             youtube.player.loadVideoById(id);
@@ -86,6 +86,15 @@
     };
 
     angular.module('VideoSearch')
+        .run(function ($q, $window) {
+            var loading = $q.defer();
+
+            $window.youtubePlayerLoading = loading.promise;
+
+            $window.onYouTubeIframeAPIReady = function () {
+                loading.resolve();
+            };
+        })
         .controller('YoutubePlayerController', YoutubePlayerController)
         .directive('youtubePlayer', function () {
             return {
